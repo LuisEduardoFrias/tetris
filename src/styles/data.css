@@ -1,0 +1,40 @@
+/** @format */
+
+.container-data {
+	width: 150px;
+	height: calc(100% - 10px);
+	background-color: white;
+	margin-block-end: 10px;
+	margin-inline-start: 10px;
+	background-color: #242424q;
+	background-image: url("../../public/wadll_cube.png");
+	box-shadow: 2px 2px 1px 3px #082585;
+	padding: 5px;
+
+	& div {
+		position: relative;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: white;
+		box-shadow:
+			1px 1px 3px 1px black,
+			-1px -1px 3px 1px black;
+		border-radius: 3px;
+		margin-block-end: 5px;
+		padding: 3px;
+	}
+
+	& div:first-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: centee;
+		align-items: flex-start;
+		gap: 3px;
+	}
+
+	& div:last-child {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
