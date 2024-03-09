@@ -3,13 +3,13 @@
 import Piece from "./piece";
 
 export default class Dot extends Piece {
-	constructor(img: string, invet: boolean = false) {
-		const coordinates: coordinate[4] = [
+	constructor(img: string) {
+		const coordinates: Point[4] = [
 			{ x: 0, y: 0 },
 			{ x: 0, y: 0 },
 			{ x: 0, y: 0 },
 			{ x: 0, y: 0 }
 		];
-		super(img, coordinates, invet);
+		super(img, coordinates, 1, 1);
 	}
 }

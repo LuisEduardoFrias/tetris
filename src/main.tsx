@@ -2,11 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Game from "./game.tsx";
-import "./styles/globals.css";
+import App from "./App.tsx";
+import "./styles/global.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<Game />
-	</React.StrictMode>
-);
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);

@@ -1,6 +1,7 @@
 /** @format */
 
-import Piece, { Point } from "../domain/piece";
+import Piece from "../domain/pieces/piece";
+import { Point } from "../domain/types";
 
 export default function DrawPiece({ piece }: { piece: Piece }) {
 	//
@@ -14,9 +15,10 @@ export default function DrawPiece({ piece }: { piece: Piece }) {
 			position: "absolute",
 			top: `${coor.y}px`,
 			left: `${coor.x}px`,
+			boxSizing: "border-box",
 			height: `${piece.side}px`,
 			width: `${piece.side}px`,
-			backgroundImage: `url("../../public/${piece.img}.png")`,
+			backgroundImage: `url("/${piece.img}.png")`,
 			backgroundRepeat: "no-repeat",
 			backgroundSize: "14px"
 		};
@@ -24,9 +26,14 @@ export default function DrawPiece({ piece }: { piece: Piece }) {
 
 	const _Styles = {
 		position: "absolute",
-		top: "10px",
-		left: "10px"
-		//border: "1px solid red"
+		width: `${piece.width}px`,
+		height: `${piece.height}px`,
+		boxSizing: "border-box",
+		top: `${piece.point.y}px`,
+		left: `${piece.point.x}px`,
+		transform: `rotate(${piece.rotate}deg)`,
+		transformOrigin: "center",
+		border: "0px solid red"
 	};
 
 	return (
