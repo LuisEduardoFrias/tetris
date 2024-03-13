@@ -1,14 +1,47 @@
 /** @format */
 
 import Piece from "./piece";
+import Coordinate from "../types";
 
 export default class Square extends Piece {
 	constructor(img: string) {
-		const coordinates: Point[4] = [
-			{ x: 0, y: 0 },
-			{ x: 14, y: 0 },
-			{ x: 0, y: 14 },
-			{ x: 14, y: 14 }
+		const coordinates: Coordinate[4] = [
+			{
+				rotate: 0,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 15, y: 15 }
+				]
+			},
+			{
+				rotate: 90,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 15, y: 15 }
+				]
+			},
+			{
+				rotate: 180,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 15, y: 15 }
+				]
+			},
+			{
+				rotate: 270,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 15, y: 15 }
+				]
+			}
 		];
 		super(img, coordinates, 2, 2);
 	}

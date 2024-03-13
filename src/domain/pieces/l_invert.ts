@@ -1,15 +1,48 @@
 /** @format */
 
 import Piece from "./piece";
+import Coordinate from "../types";
 
 export default class LInvert extends Piece {
 	constructor(img: string) {
-		const coordinates: Point[4] = [
-			{ x: 14, y: 0 },
-			{ x: 14, y: 14 },
-			{ x: 14, y: 28 },
-			{ x: 0, y: 28 }
+		const coordinates: Coordinate[4] = [
+			{
+				rotate: 0,
+				points: [
+					{ x: 0, y: 30 },
+					{ x: 15, y: 30 },
+					{ x: 15, y: 15 },
+					{ x: 15, y: 0 }
+				]
+			},
+			{
+				rotate: 90,
+				points: [
+					{ x: 30, y: 15 },
+					{ x: 30, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 0, y: 0 }
+				]
+			},
+			{
+				rotate: 180,
+				points: [
+					{ x: 15, y: 0 },
+					{ x: 0, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 0, y: 30 }
+				]
+			},
+			{
+				rotate: 270,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 15, y: 15 },
+					{ x: 30, y: 15 }
+				]
+			}
 		];
-		super(img, coordinates, 3,2);
+		super(img, coordinates, 3, 2);
 	}
 }

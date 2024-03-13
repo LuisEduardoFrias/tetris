@@ -8,7 +8,7 @@ export type Control = {
 };
 
 export type globalState = {
-	play: Play;
+	play: string;
 	pieces: Piece[];
 	nextPiece: Piece;
 	score: number;
@@ -24,4 +24,9 @@ export type globalState = {
 export type Point = {
 	x: number;
 	y: number;
+};
+
+export type Coordinate = {
+	rotate: number;
+	points: Point[];
 };

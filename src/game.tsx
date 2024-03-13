@@ -1,9 +1,10 @@
 /** @format */
 
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+import Controls from "./components/controls";
 import Menu from "./components/menu";
 import Data from "./components/data";
-import Controls from "./components/controls";
 import Space from "./components/space";
 
 import Dot from "./domain/pieces/dot";
@@ -17,31 +18,54 @@ import Straight from "./domain/pieces/straight";
 import Piece from "./domain/pieces/piece";
 
 import { Actions } from "./domain/reducer";
+import clone from "./domain/clone";
 import { Play } from "./domain/enums";
 import { globalState, Control } from "./domain/types";
-import { clone } from "./super_state/index";
-import { useStore } from "./domain/store";
+import { useStore, getPieces } from "./domain/store";
 import shallow from "zustand/shallow";
 
 import Styles from "./styles/game.module.css";
 
+const speedMovement: number = 15;
+const increaseSpeed: number = 20;
+const fallSpeed: number = 3;
+const frame: number = 50;
+
+//TODO cambiar el manejo de estado a zustand
+
 export default function Game() {
-	const { play, pieces, nextPiece, movePiece, addPiece, control } = useStore();
+	const [state, setState] = useState(0);
+
+	const { play, level, pieces, movePiece, addPiece, control, changeLevel } =
+		useStore();
+
+	if (play === Play.start) {
+		//	alert("primero : " + JSON.stringify(pieces, null, 2));
+
+		colitions(getLast(pieces), addPiece);
+		movePieces(getLast(pieces), movePiece, control);
+	}
 
 	useEffect(() => {
-		if (play == Play.start) {
-			const lastPiece: Piece = getLast(pieces);
-			movePieces(lastPiece, movePiece, control);
-			colitions(lastPiece, addPiece);
-		}
-	}, [pieces, play]);
+		setTimeout(() => {
+			if (state >= 70) {
+				setState(0);
+			} else {
+				setState(state + 1);
+			}
+		}, frame);
+	}, [state]);
 
+	const lastPirce = getLast(pieces);
 	return (
 		<div className={Styles.word}>
+			<h1>
+				{state}--{lastPirce.point.x}--{lastPirce.point.y}
+			</h1>
 			<div className={Styles.container}>
 				{(play === Play.init || play === Play.stop) && <Menu />}
-				<Space pieces={pieces} />
-				<Data nextPiece={nextPiece} />
+				<Space />
+				<Data />
 			</div>
 			<Controls />
 		</div>
@@ -53,36 +77,36 @@ function movePieces(
 	movePiece: (piece: Piece) => void,
 	control: Control
 ) {
-	setTimeout(() => {
-		const otherPiece: Piece = { ...piece };
+	const otherPiece: Piece = clone(piece);
 
-		if (control.left && otherPiece.point.x >= 0) {
-			otherPiece.point.x -= 0.5;
-		}
-		if (control.right && otherPiece.point.x <= 200) {
-			otherPiece.point.x += 0.5;
-		}
+	//TODO mejorar los controles, la jugavilidad se ve afectada.
 
-		//if (control.b) {}
+	if (control.left && otherPiece.point.x > 0) {
+		otherPiece.point.x -= speedMovement;
+	}
+	if (control.right && otherPiece.point.x + otherPiece.width < 255) {
+		otherPiece.point.x += speedMovement;
+	}
 
-		if (control.a) {
-			otherPiece.point.y += 1;
-		} else {
-			otherPiece.point.y += 0.2;
-		}
+	//if (control.b) {}
 
-		movePiece(otherPiece);
-	}, 1);
+	if (control.a) {
+		otherPiece.point.y += increaseSpeed;
+	} else {
+		otherPiece.point.y += fallSpeed;
+	}
+
+	movePiece(otherPiece);
 }
 
 function colitions(piece: Piece, addPiece: () => void) {
 	//colision contra las paredes 550 - piece.height
-	if (piece.point.y >= 500) {
+	if (piece.point.y >= 540 - piece.height) {
 		addPiece();
 	}
 	//
 }
 
 function getLast(pieces: Piece[]): Piece {
-	return { ...pieces[pieces.length - 1] };
+	return clone(pieces[pieces.length - 1]);
 }

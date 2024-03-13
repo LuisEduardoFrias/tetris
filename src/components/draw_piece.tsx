@@ -1,46 +1,82 @@
 /** @format */
 
+import { useId } from "react";
 import Piece from "../domain/pieces/piece";
-import { Point } from "../domain/types";
+import { Point, Coordinate } from "../domain/types";
+import T from "../domain/pieces/t";
 
-export default function DrawPiece({ piece }: { piece: Piece }) {
-	//
+export default function DrawPiece({
+	piece,
+	isStatic,
+	justifyCenter
+}: {
+	piece: Piece;
+	isStatic?: boolean;
+	justifyCenter?: boolean;
+}) {
+	const unique: string = useId();
 
-	const Styles = {
-		position: "absolute"
-	};
-
-	function Box(coor: Point): object {
-		return {
-			position: "absolute",
-			top: `${coor.y}px`,
-			left: `${coor.x}px`,
-			boxSizing: "border-box",
-			height: `${piece.side}px`,
-			width: `${piece.side}px`,
-			backgroundImage: `url("/${piece.img}.png")`,
-			backgroundRepeat: "no-repeat",
-			backgroundSize: "14px"
-		};
-	}
+	//TODO justificar el componente al centro, sin perder la movilidad
+	//TODO Centralizar el componente al estar en isStatic
 
 	const _Styles = {
-		position: "absolute",
+		position: `${"absolute"}`,
 		width: `${piece.width}px`,
 		height: `${piece.height}px`,
 		boxSizing: "border-box",
-		top: `${piece.point.y}px`,
-		left: `${piece.point.x}px`,
-		transform: `rotate(${piece.rotate}deg)`,
-		transformOrigin: "center",
+		top: piece.point.y + "px",
+		left: piece.point.x + "px",
 		border: "0px solid red"
 	};
 
+	const coor: Coordinate = piece.coordinates.filter(
+		(coor: Coordinate) => coor.rotate === piece.rotate
+	)[0];
+	
 	return (
 		<div style={_Styles}>
-			{piece.coordinates.map((coor: Point, index: number) => (
-				<div style={Box(coor)}></div>
+			<div
+				style={{
+					width: "5px",
+					height: "5px",
+					backgroundColor: "red",
+					position: "absolute",
+					top: "0px",
+					left: "0px"
+				}}></div>
+
+			{coor.points.map((point: Point, index: number) => (
+				<Box
+					key={`${index}-${unique}`}
+					point={point}
+					side={piece.side}
+					img={piece.img}
+				/>
 			))}
 		</div>
 	);
+}
+
+function Box({
+	point,
+	side,
+	img
+}: {
+	point: Point;
+	side: number;
+	img: string;
+}) {
+	const _Styles = {
+		position: "absolute",
+		top: `${point.y}px`,
+		left: `${point.x}px`,
+		boxSizing: "border-box",
+		height: `${side}px`,
+		width: `${side}px`,
+		backgroundImage: `url("/${img}.png")`,
+		backgroundSize: "cover",
+		border: "0px solid black"
+	};
+
+	return <div style={_Styles}></div>;
 }

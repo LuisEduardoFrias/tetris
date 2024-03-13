@@ -9,10 +9,12 @@ export default function Button({
 	textClass?: string;
 	[key: string]: any;
 }) {
+	
 	const styles = {
 		cursor: "pointer",
 		userSelect: "none"
 	};
+	
 	return (
 		<button style={styles} className='btn' {...rest}>
 			<span

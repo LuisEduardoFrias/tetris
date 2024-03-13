@@ -1,6 +1,6 @@
 /** @format */
 
-import { Point } from "../types";
+import { Point, Coordinate } from "../types";
 
 /**
  * Clase abstracta para representar una pieza en un juego.
@@ -33,17 +33,17 @@ export default abstract class Piece {
 	/**
 	 * Las coordenadas de cada cubo que condforman la pieza.
 	 */
-	coordinates: Point[];
+	coordinates: Coordinate[];
 
 	/**
 	 * Crea una instancia de Piece.
 	 * @param {string} img - La ruta de la imagen de la pieza.
-	 * @param {Point[]} coordinates - Las coordenadas de la pieza.
+	 * @param {Coordinates[]} coordinates - Las coordenadas de la pieza.
 	 * @param {number} heightMultiplier - El multiplicador de altura.
 	 */
 	constructor(
 		img: string,
-		coordinates: Point[],
+		coordinates: Coordinate[],
 		heightMultiplier: number,
 		widthMultiplier: number
 	) {

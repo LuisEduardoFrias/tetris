@@ -2,11 +2,13 @@
 
 import DrawPiece from "./draw_piece";
 import Piece from "../domain/pieces/piece";
+import { useStore } from "../domain/store";
+import shallow from "zustand/shallow";
 import "../styles/data.css";
 
-export default function Data({ nextPiece }: { nextPiece: Piece }) {
-	nextPiece.point.y = 6;
-	nextPiece.point.x = 25;
+export default function Data() {
+	const { nextPiece } = useStore(state=>({nextPiece:state.nextPiece}));
+
 	return (
 		<aside className='container-data'>
 			<article>
@@ -17,8 +19,7 @@ export default function Data({ nextPiece }: { nextPiece: Piece }) {
 			<article>
 				<span>{`Next`}</span>
 				<div>
-					{" "}
-					<DrawPiece piece={nextPiece} />{" "}
+					<DrawPiece isStatic={true} piece={nextPiece} />
 				</div>
 			</article>
 		</aside>

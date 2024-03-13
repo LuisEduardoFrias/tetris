@@ -1,6 +1,7 @@
 /** @format */
 
 import Piece from "./piece";
+import Coordinate from "../types";
 
 /**
  * Clase para representar una pieza recta.
@@ -11,11 +12,43 @@ export default class Straight extends Piece {
 	 * @param {string} img - La ruta de la imagen de la pieza.
 	 */
 	constructor(img: string) {
-		const coordinates: Point[] = [
-			{ x: 0, y: 0 },
-			{ x: 0, y: 14 },
-			{ x: 0, y: 28 },
-			{ x: 0, y: 42 }
+		const coordinates: Coordinate[4] = [
+			{
+				rotate: 0,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 0, y: 30 },
+					{ x: 0, y: 45 }
+				]
+			},
+			{
+				rotate: 90,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 30, y: 0 },
+					{ x: 45, y: 0 }
+				]
+			},
+			{
+				rotate: 180,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 0, y: 15 },
+					{ x: 0, y: 30 },
+					{ x: 0, y: 45 }
+				]
+			},
+			{
+				rotate: 270,
+				points: [
+					{ x: 0, y: 0 },
+					{ x: 15, y: 0 },
+					{ x: 30, y: 0 },
+					{ x: 45, y: 0 }
+				]
+			}
 		];
 		super(img, coordinates, 4, 1);
 	}

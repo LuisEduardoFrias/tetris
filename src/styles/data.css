@@ -1,7 +1,7 @@
 /** @format */
 
 .container-data {
-	width: 150px;
+	width: 120px;
 	height: calc(100%);
 	background-color: white;
 	/*margin-block-end: 10px;
@@ -48,6 +48,11 @@
 			border-radius: 5px;
 			padding: 10px;
 			margin-block-end: 10px;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-content: center;
 		}
 	}
 }
