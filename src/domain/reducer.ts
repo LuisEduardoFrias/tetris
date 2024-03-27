@@ -1,6 +1,6 @@
 /** @format */
 
-import { Action } from "../super_state/lib/types";
+import { Action, GlobalState } from "@luiseduardofrias27/super_state/types"; 
 import { clone } from "./super_state/index";
 
 export const enum Actions {
@@ -17,7 +17,7 @@ export const enum Actions {
 	changeB = "changeB"
 }
 
-export default function reducer(state: object, action: Action) {
+export default function reducer(state: GlobalState, action: Action) : GlobalState {
 	const _reduce = {
 		changePlay: () => {
 			return { ...state, play: action.value };

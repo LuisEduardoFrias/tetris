@@ -35,16 +35,6 @@ export default function DrawPiece({
 	
 	return (
 		<div style={_Styles}>
-			<div
-				style={{
-					width: "5px",
-					height: "5px",
-					backgroundColor: "red",
-					position: "absolute",
-					top: "0px",
-					left: "0px"
-				}}></div>
-
 			{coor.points.map((point: Point, index: number) => (
 				<Box
 					key={`${index}-${unique}`}

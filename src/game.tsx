@@ -27,9 +27,9 @@ import shallow from "zustand/shallow";
 import Styles from "./styles/game.module.css";
 
 const speedMovement: number = 15;
-const increaseSpeed: number = 20;
+const increaseSpeed: number = 21;
 const fallSpeed: number = 3;
-const frame: number = 50;
+const frame: number = 100;
 
 //TODO cambiar el manejo de estado a zustand
 
@@ -40,8 +40,6 @@ export default function Game() {
 		useStore();
 
 	if (play === Play.start) {
-		//	alert("primero : " + JSON.stringify(pieces, null, 2));
-
 		colitions(getLast(pieces), addPiece);
 		movePieces(getLast(pieces), movePiece, control);
 	}
@@ -57,11 +55,15 @@ export default function Game() {
 	}, [state]);
 
 	const lastPirce = getLast(pieces);
+
 	return (
 		<div className={Styles.word}>
 			<h1>
 				{state}--{lastPirce.point.x}--{lastPirce.point.y}
 			</h1>
+			<h2>
+				{lastPirce.point.y}--{lastPirce.height}
+			</h2>
 			<div className={Styles.container}>
 				{(play === Play.init || play === Play.stop) && <Menu />}
 				<Space />
@@ -101,8 +103,10 @@ function movePieces(
 
 function colitions(piece: Piece, addPiece: () => void) {
 	//colision contra las paredes 550 - piece.height
-	if (piece.point.y >= 540 - piece.height) {
-		addPiece();
+	if (piece.point.y + piece.height >= 548) {
+		const otherPiece: Piece = { ...piece };
+		otherPiece.point.y = (550 - piece.height);
+		addPiece(otherPiece);
 	}
 	//
 }

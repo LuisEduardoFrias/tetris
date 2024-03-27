@@ -44,30 +44,27 @@ const USE_STORE: globalState = {
 			alert(err);
 		}
 	},
-	addPiece: function () {
+	addPiece: function (newpiece: Piece) {
 		{
-			//alert("add 1: " + JSON.stringify(USE_STORE.pieces, null, 2));
-
 			const newNextPiece: Piece = GeneratePiece();
 
 			const updateNextPiece: Piece = clone(USE_STORE.nextPiece);
 			updateNextPiece.point.y = 0;
 			updateNextPiece.point.x = 0;
 
+			USE_STORE.pieces.pop();
+			USE_STORE.pieces.push(newpiece);
 			USE_STORE.pieces.push(updateNextPiece);
 			USE_STORE.nextPiece = newNextPiece;
 
-			//	alert("add 2: " + JSON.stringify(USE_STORE.pieces, null, 2));
+			console.log("varias: " + JSON.stringify(USE_STORE.pieces, null, 2))
+
 		}
 	}
 };
 
 export function useStore() {
-	const st = USE_STORE;
-
-	//	alert("use store: " + JSON.stringify(st.pieces, null, 2));
-
-	return st;
+	return USE_STORE;
 }
 
 function assignRotation(piece: Piece) {
